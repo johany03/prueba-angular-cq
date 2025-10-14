@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, map, Observable, switchMap, tap, throwError } from 'rxjs';
+import { catchError, map, Observable, switchMap, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,7 +11,6 @@ export class AuthService {
     router = inject(Router);
     http = inject(HttpClient);
     baseURL = environment.BASE_URL + '/auth';
-
 
     logOut() {
         localStorage.clear();
@@ -66,11 +65,11 @@ export class AuthService {
                 if (profile.last_login) {
                     localStorage.setItem('userLastLogin', profile.last_login);
                 }
-                
+
                 // Guardar configuración del perfil
                 if (profile.profile) {
                     localStorage.setItem('userProfile', JSON.stringify(profile.profile));
-                    
+
                     // Guardar configuraciones específicas
                     if (profile.profile.timezone) {
                         localStorage.setItem('userTimezone', profile.profile.timezone);
@@ -85,7 +84,7 @@ export class AuthService {
                         localStorage.setItem('userAvatar', profile.profile.avatar);
                     }
                 }
-                
+
                 // Guardar todo el perfil como JSON para uso futuro
                 localStorage.setItem('userFullProfile', JSON.stringify(profile));
             })
