@@ -1,8 +1,10 @@
 <p-toolbar styleClass="mb-6">
     <ng-template #start>
-        <p-button label="New" icon="pi pi-plus" severity="secondary" class="mr-2" (onClick)="openNew()" />
     </ng-template>
 
+    <ng-template #end>
+       <p-button label="Nuevo Cliente" icon="pi pi-plus" severity="success" class="mr-2" (onClick)="openNew()" />
+    </ng-template>
 </p-toolbar>
 
 <p-table #dt [value]="clientes" [rows]="10" [paginator]="true"
@@ -33,8 +35,16 @@
     </ng-template>
     <ng-template #body let-item>
         <tr>
-            <td *ngFor="let col of cols">
-                {{ item[col.field] }}
+            <td *ngFor="let col of cols" [ngClass]="col.field === 'enabled' ? 'text-center' : ''">
+                <ng-container *ngIf="col.field === 'enabled'; else defaultCell">
+                    <i [class]="item[col.field] ? 'pi pi-check text-green-500' : 'pi pi-times text-red-500'" 
+                       [pTooltip]="item[col.field] ? 'Activo' : 'Inactivo'"
+                       tooltipPosition="top"
+                       style="font-size: 1.2rem; cursor: help;"></i>
+                </ng-container>
+                <ng-template #defaultCell>
+                    {{ item[col.field] }}
+                </ng-template>
             </td>
             <td style="text-align: center;">
                 <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true"
@@ -49,6 +59,6 @@
 
 <p-confirmdialog [style]="{ width: '450px' }" />
 
-<app-form #formComponent></app-form>
+<app-form #formComponent (clienteSaved)="onClienteSaved()"></app-form>
 
 <p-toast></p-toast>

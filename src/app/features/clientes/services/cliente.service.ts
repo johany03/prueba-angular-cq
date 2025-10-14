@@ -13,7 +13,7 @@ export class ClienteService {
 
     /**
      * Obtiene el listado de todos los clientes
-     * @returns Observable<Cliente[]>
+     * @returns Observable<ClienteList[]>
      */
     getClientes(): Observable<ClienteList[]> {
         return this.http.post<ClienteList[]>(`${this.urlApi}/list/`, {});
@@ -25,7 +25,7 @@ export class ClienteService {
      * @returns Observable<Cliente>
      */
     getClienteById(id: number): Observable<Cliente> {
-        return this.http.get<Cliente>(`${this.urlApi}/get/${id}`);
+        return this.http.post<Cliente>(`${this.urlApi}/get/`, { id });
     }
 
     /**
@@ -44,7 +44,7 @@ export class ClienteService {
      * @returns Observable<Cliente>
      */
     updateCliente(id: number, cliente: Cliente): Observable<Cliente> {
-        return this.http.put<Cliente>(`${this.urlApi}/update/${id}`, cliente);
+        return this.http.post<Cliente>(`${this.urlApi}/update/`, { id, ...cliente });
     }
 
     /**
@@ -53,6 +53,6 @@ export class ClienteService {
      * @returns Observable<void>
      */
     deleteCliente(id: number): Observable<void> {
-        return this.http.delete<void>(`${this.urlApi}/delete/${id}`);
+        return this.http.post<void>(`${this.urlApi}/delete/`, { id });
     }
 }

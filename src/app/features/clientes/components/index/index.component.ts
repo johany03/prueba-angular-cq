@@ -18,6 +18,7 @@ import { TagModule } from 'primeng/tag';
 import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TooltipModule } from 'primeng/tooltip';
 import { Cliente, ClienteList } from '../../model/cliente.model';
 import { ClienteService } from '../../services/cliente.service';
 import { Column } from '@/shared/models/column.model';
@@ -47,6 +48,7 @@ import { FormComponent } from '../form/form.component';
         InputIconModule,
         IconFieldModule,
         ConfirmDialogModule,
+        TooltipModule,
         FormComponent
     ],
     providers: [MessageService, ClienteService, ConfirmationService]
@@ -72,7 +74,6 @@ export class IndexComponent implements OnInit {
     getClientes() {
         this.clienteService.getClientes().subscribe((data) => {
             this.clientes = data;
-            console.log(this.clientes);
         });
     }
 
@@ -123,5 +124,9 @@ export class IndexComponent implements OnInit {
                 });
             }
         });
+    }
+
+    onClienteSaved() {
+        this.getClientes(); // Recargar la lista cuando se guarda un cliente
     }
 }

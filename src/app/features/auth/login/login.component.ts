@@ -41,15 +41,11 @@ export class LoginComponent implements OnInit {
     login() {
         this.auth.login(this.form.value.email, this.form.value.password).subscribe({
             next: (res: any) => {
-                console.log('Login exitoso:', res);
-                localStorage.setItem('token', res.token);
                 this.router.navigate(['/dashboard']);
                 this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Inicio sesión exitoso' });
             },
             error: (err) => {
                 this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.errors[0] });
-                console.log('Error en login:', err);
-                console.error('Error en login:', err);
             }
         });
     }

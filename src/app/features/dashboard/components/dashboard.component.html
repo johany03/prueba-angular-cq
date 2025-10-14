@@ -1,5 +1,149 @@
-<div class="card flex flex-col md:flex-row gap-8">
-    <div>
-        <span class="text-5xl font-medium">Prueba Angular CQ</span>
+<div class="max-w-7xl mx-auto p-6 space-y-6">
+    <!-- Bienvenida -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+        <div class="flex items-center space-x-6">
+            <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white shadow-lg">
+                <span *ngIf="!userAvatar" class="text-3xl font-bold">{{ getInitials() }}</span>
+                <img *ngIf="userAvatar" [src]="userAvatar" alt="Avatar" class="w-full h-full rounded-full object-cover">
+            </div>
+            <div class="flex-1">
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">¡Bienvenido, {{ userName }}!</h1>
+                <p class="text-lg text-gray-600">Dashboard - Sistema de Gestión</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid de Información -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Información Personal -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                    <i class="pi pi-user text-blue-600 text-lg"></i>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-900">Información Personal</h2>
+            </div>
+
+            <div class="space-y-4">
+                <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="pi pi-user text-blue-600 text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium text-gray-900 mb-1">Johany Armando Cruz Cuetato</div>
+                        <div class="text-gray-600">{{ userName }}</div>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg" *ngIf="userEmail">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="pi pi-envelope text-blue-600 text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium text-gray-900 mb-1">Email</div>
+                        <div class="text-gray-600">{{ userEmail }}</div>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="pi pi-clock text-blue-600 text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium text-gray-900 mb-1">Último Acceso</div>
+                        <div class="text-gray-600">{{ formatLastLogin() }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información de Contacto -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                    <i class="pi pi-id-card text-green-600 text-lg"></i>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-900">Información de Contacto</h2>
+            </div>
+
+            <div class="space-y-4">
+                <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="pi pi-map-marker text-green-600 text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium text-gray-900 mb-1">Ubicación</div>
+                        <div class="text-gray-600">Neiva, Huila</div>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="pi pi-linkedin text-green-600 text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium text-gray-900 mb-1">LinkedIn</div>
+                        <div class="text-gray-600">
+                            <a href="https://linkedin.com/in/johanycruz" target="_blank" class="text-blue-600 hover:text-blue-800 underline">
+                                linkedin.com/in/johanycruz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="pi pi-phone text-green-600 text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium text-gray-900 mb-1">Teléfono</div>
+                        <div class="text-gray-600">+57 314 288 9345</div>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                        <i class="pi pi-envelope text-green-600 text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium text-gray-900 mb-1">Email</div>
+                        <div class="text-gray-600">
+                            <a href="mailto:johany1996@hotmail.com" class="text-blue-600 hover:text-blue-800 underline">
+                                johany1996@hotmail.com
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lenguajes y Frameworks -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div class="flex items-center mb-6">
+            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                <i class="pi pi-code text-purple-600 text-lg"></i>
+            </div>
+            <h2 class="text-xl font-semibold text-gray-900">Lenguajes y Frameworks</h2>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+            <p-tag value="HTML5" severity="info" class="text-sm"></p-tag>
+            <p-tag value="CSS3" severity="info" class="text-sm"></p-tag>
+            <p-tag value="JavaScript" severity="info" class="text-sm"></p-tag>
+            <p-tag value="Bootstrap" severity="info" class="text-sm"></p-tag>
+            <p-tag value="Angular" severity="info" class="text-sm"></p-tag>
+            <p-tag value="Laravel" severity="info" class="text-sm"></p-tag>
+            <p-tag value="TypeScript" severity="info" class="text-sm"></p-tag>
+            <p-tag value="PHP" severity="info" class="text-sm"></p-tag>
+            <p-tag value="MySQL" severity="info" class="text-sm"></p-tag>
+            <p-tag value="PostgreSQL" severity="info" class="text-sm"></p-tag>
+            <p-tag value="Node.js" severity="info" class="text-sm"></p-tag>
+            <p-tag value="NestJS" severity="info" class="text-sm"></p-tag>
+            <p-tag value="REST APIs" severity="secondary" class="text-sm"></p-tag>
+            <p-tag value="Scrum" severity="success" class="text-sm"></p-tag>
+            <p-tag value="Git" severity="warning" class="text-sm"></p-tag>
+            <p-tag value="Jira" severity="warning" class="text-sm"></p-tag>
+        </div>
     </div>
 </div>
