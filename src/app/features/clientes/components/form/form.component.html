@@ -1,0 +1,93 @@
+<p-dialog
+    [(visible)]="clienteDialog"
+    [style]="{ width: '450px' }"
+    header="Cliente"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    class="p-fluid">
+    <form [formGroup]="clienteForm" (ngSubmit)="saveCliente()">
+        <div class="field">
+            <label for="tax_id">NIT</label>
+            <input
+                type="text"
+                pInputText
+                id="tax_id"
+                formControlName="tax_id"
+                required
+                [ngClass]="{ 'ng-invalid ng-dirty': submitted && clienteForm.get('tax_id')?.invalid }" />
+            <small class="p-error" *ngIf="submitted && clienteForm.get('tax_id')?.invalid">
+                NIT es requerido y debe tener al menos 10 caracteres.
+            </small>
+        </div>
+
+        <div class="field">
+            <label for="name">Nombre</label>
+            <input
+                type="text"
+                pInputText
+                id="name"
+                formControlName="name"
+                required
+                [ngClass]="{ 'ng-invalid ng-dirty': submitted && clienteForm.get('name')?.invalid }" />
+            <small class="p-error" *ngIf="submitted && clienteForm.get('name')?.invalid">
+                Nombre es requerido y debe tener al menos 100 caracteres.
+            </small>
+        </div>
+
+        <div class="field">
+            <label for="address">Dirección</label>
+            <textarea
+                pInputTextarea
+                id="address"
+                formControlName="address"
+                rows="3"
+                required
+                [ngClass]="{ 'ng-invalid ng-dirty': submitted && clienteForm.get('address')?.invalid }">
+            </textarea>
+            <small class="p-error" *ngIf="submitted && clienteForm.get('address')?.invalid">
+                Dirección es requerida.
+            </small>
+        </div>
+
+        <div class="field">
+            <label for="contact_email">Email de Contacto</label>
+            <input
+                type="email"
+                pInputText
+                id="contact_email"
+                formControlName="contact_email"
+                required
+                [ngClass]="{ 'ng-invalid ng-dirty': submitted && clienteForm.get('contact_email')?.invalid }" />
+            <small class="p-error" *ngIf="submitted && clienteForm.get('contact_email')?.invalid">
+                Email es requerido y debe ser válido.
+            </small>
+        </div>
+
+        <div class="field">
+            <label for="enabled">Estado</label>
+            <p-toggleswitch id="enabled" formControlName="enabled"></p-toggleswitch>
+        </div>
+    </form>
+
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            label="Cancelar"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="hideDialog()">
+        </button>
+        <button
+            pButton
+            pRipple
+            label="Guardar"
+            icon="pi pi-check"
+            class="p-button-text"
+            (click)="saveCliente()">
+        </button>
+    </ng-template>
+</p-dialog>
+
+<p-toast></p-toast>

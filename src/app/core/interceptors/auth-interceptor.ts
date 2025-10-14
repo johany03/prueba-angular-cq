@@ -10,7 +10,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     let headers = req.headers.set('Content-Type', 'application/json');
 
     if (token) {
-        headers = headers.set('Authorization', `Bearer ${token}`);
+        headers = headers.set('Authorization', `JWT ${token}`);
     }
 
     const authReq = req.clone({ headers });

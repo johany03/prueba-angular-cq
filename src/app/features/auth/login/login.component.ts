@@ -7,13 +7,15 @@ import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 import { AppFloatingConfigurator } from '../../../layout/component/app.floatingconfigurator';
 import { AuthService } from '../services/auth.service';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [ButtonModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, AppFloatingConfigurator, ReactiveFormsModule],
+    imports: [ButtonModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, AppFloatingConfigurator, ReactiveFormsModule, ToastModule],
     templateUrl: './login.component.html',
-    providers: [AuthService]
+    providers: [AuthService, MessageService]
 })
 export class LoginComponent implements OnInit {
     form!: FormGroup;
@@ -21,7 +23,8 @@ export class LoginComponent implements OnInit {
     constructor(
         private readonly fb: FormBuilder,
         private readonly auth: AuthService,
-        private readonly router: Router
+        private readonly router: Router,
+        private messageService: MessageService
     ) {}
 
     ngOnInit(): void {
@@ -38,10 +41,14 @@ export class LoginComponent implements OnInit {
     login() {
         this.auth.login(this.form.value.email, this.form.value.password).subscribe({
             next: (res: any) => {
-                localStorage.setItem('token', res.access_token);
+                console.log('Login exitoso:', res);
+                localStorage.setItem('token', res.token);
                 this.router.navigate(['/dashboard']);
+                this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Inicio sesión exitoso' });
             },
             error: (err) => {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.errors[0] });
+                console.log('Error en login:', err);
                 console.error('Error en login:', err);
             }
         });
