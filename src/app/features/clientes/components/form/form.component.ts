@@ -30,8 +30,8 @@ export class FormComponent implements OnInit {
     ) {
         this.clienteForm = this.fb.group({
             id: [null],
-            tax_id: ['', [Validators.required, Validators.minLength(10)]],
-            name: ['', [Validators.required, Validators.minLength(100)]],
+            tax_id: ['', [Validators.required, Validators.maxLength(12)]],
+            name: ['', [Validators.required, Validators.maxLength(100)]],
             address: ['', Validators.required],
             contact_email: ['', [Validators.required, Validators.email]],
             enabled: [true]
