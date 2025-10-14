@@ -85,11 +85,11 @@ flowchart TD
     C --> B
     D --> E
 
-    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px
-    classDef core fill:#e1f5fe,stroke:#333,stroke-width:1px
-    classDef features fill:#e8f5e9,stroke:#333,stroke-width:1px
-    classDef layout fill:#fff3e0,stroke:#333,stroke-width:1px
-    classDef shared fill:#f3e5f5,stroke:#333,stroke-width:1px
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px,color:#000000,font-weight:bold
+    classDef core fill:#e1f5fe,stroke:#333,stroke-width:1px,color:#000000,font-weight:bold
+    classDef features fill:#e8f5e9,stroke:#333,stroke-width:1px,color:#000000,font-weight:bold
+    classDef layout fill:#fff3e0,stroke:#333,stroke-width:1px,color:#000000,font-weight:bold
+    classDef shared fill:#f3e5f5,stroke:#333,stroke-width:1px,color:#000000,font-weight:bold
 
     class A default
     class B,B1 core
