@@ -9,11 +9,12 @@ import { AppFloatingConfigurator } from '../../../layout/component/app.floatingc
 import { AuthService } from '../services/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [ButtonModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, AppFloatingConfigurator, ReactiveFormsModule, ToastModule],
+    imports: [ButtonModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, AppFloatingConfigurator, ReactiveFormsModule, ToastModule, NgIf],
     templateUrl: './login.component.html',
     providers: [AuthService, MessageService]
 })
@@ -48,5 +49,13 @@ export class LoginComponent implements OnInit {
                 this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.errors[0] });
             }
         });
+    }
+
+    get email() {
+        return this.form.get('email')!;
+    }
+
+    get password() {
+        return this.form.get('password')!;
     }
 }

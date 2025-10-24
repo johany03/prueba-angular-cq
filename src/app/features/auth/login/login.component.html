@@ -28,12 +28,21 @@
                         <div>
                             <form [formGroup]="form" (ngSubmit)="login()">
                                 <label for="email1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Email</label>
-                                <input pInputText id="email1" type="text" placeholder="Email address" class="w-full md:w-120 mb-8"
-                                    formControlName="email" />
 
-                                <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Password</label>
-                                <p-password id="password1" formControlName="password" placeholder="Password" [toggleMask]="true" styleClass="mb-4"
+                                    <input pInputText id="email1" type="text" placeholder="Email address" class="w-full md:w-120 mb-1"
+                                        formControlName="email">
+                                    <span *ngIf="email.invalid && (email.dirty || email.touched)" class="text-red-600 block mb-5">
+                                        <small *ngIf="email.errors?.['required']">Email is required.</small>
+                                        <small *ngIf="email.errors?.['email']">Please enter a valid email address.</small>
+                                    </span>
+
+                                <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-1">Password</label>
+                                <p-password id="password1" formControlName="password" placeholder="Password" [toggleMask]="true" styleClass="mb-1"
                                     [fluid]="true" [feedback]="false"></p-password>
+                                <span *ngIf="password.invalid && (password.dirty || password.touched)" class="text-red-600 block mb-5">
+                                    <small *ngIf="password.errors?.['required']">Password is required.</small>
+                                    <small *ngIf="password.errors?.['minlength']">Password must be at least 6 characters long.</small>
+                                </span>
                                 <p-toast />
                                 <p-button label="Sign In" styleClass="w-full" type="submit"></p-button>
                             </form>
