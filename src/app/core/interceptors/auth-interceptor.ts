@@ -19,11 +19,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     }
 
     const authReq = req.clone({ headers });
-    
+
     return next(authReq).pipe(
         catchError((error: HttpErrorResponse) => {
             console.log('🚨 Error en interceptor:', error.status, 'para:', req.url);
-            
+            console.log('‼️Detalles del error:', error);
             if (error.status === 401 && !req.url.includes('/login') && !req.url.includes('/refresh')) {
                 authService.logOut();
             }
