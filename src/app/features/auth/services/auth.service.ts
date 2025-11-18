@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { catchError, map, Observable, switchMap, tap, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {inject, Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {catchError, map, Observable, switchMap, tap, throwError} from 'rxjs';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +18,7 @@ export class AuthService {
     }
 
     logOutApi(): Observable<any> {
-        return this.http.post<any>(`${this.baseURL}/logout/`, {}).pipe(
+        return this.http.post<any>(`${this.baseURL}/logout`, {}).pipe(
             tap(() => {
                 this.logOut();
             }),
@@ -31,11 +31,11 @@ export class AuthService {
     }
 
     login(email: string, password: string): Observable<any> {
-        return this.http.post<any>(`${this.baseURL}/login/`, { email, password }).pipe(
+        return this.http.post<any>(`${this.baseURL}/login`, {email, password}).pipe(
             tap((response) => {
                 // Guardar el token si está disponible
-                if (response.token) {
-                    localStorage.setItem('token', response.token);
+                if (response) {
+                    localStorage.setItem('token', response.access_token);
                 }
             }),
             // Después del login exitoso, obtener el perfil del usuario
@@ -48,40 +48,36 @@ export class AuthService {
      * @returns Observable<any>
      */
     getUserProfile(): Observable<any> {
-        return this.http.post<any>(`${this.baseURL}/user/profile/`, {}).pipe(
+        return this.http.post<any>(`${this.baseURL}/profile`, {}).pipe(
             tap((profile) => {
                 // Guardar el nombre completo del usuario
-                if (profile.first_name && profile.last_name) {
-                    localStorage.setItem('userName', `${profile.first_name} ${profile.last_name}`);
-                } else if (profile.first_name) {
-                    localStorage.setItem('userName', profile.first_name);
-                } else if (profile.last_name) {
-                    localStorage.setItem('userName', profile.last_name);
+                if (profile.name) {
+                    localStorage.setItem('userName', `${profile.name}`);
                 } else {
                     localStorage.setItem('userName', 'Usuario');
                 }
 
                 // Guardar información adicional del usuario
-                if (profile.last_login) {
-                    localStorage.setItem('userLastLogin', profile.last_login);
+                if (profile.created_at) {
+                    localStorage.setItem('userLastLogin', profile.created_at);
                 }
 
                 // Guardar configuración del perfil
-                if (profile.profile) {
-                    localStorage.setItem('userProfile', JSON.stringify(profile.profile));
+                if (profile.name) {
+                    localStorage.setItem('userProfile', JSON.stringify(profile.name));
 
                     // Guardar configuraciones específicas
-                    if (profile.profile.timezone) {
-                        localStorage.setItem('userTimezone', profile.profile.timezone);
+                    if (profile.created_at) {
+                        localStorage.setItem('userTimezone', profile.created_at);
                     }
-                    if (profile.profile.theme) {
-                        localStorage.setItem('userTheme', profile.profile.theme);
+                    if (profile.email) {
+                        localStorage.setItem('userTheme', profile.email);
                     }
-                    if (profile.profile.lang) {
-                        localStorage.setItem('userLang', profile.profile.lang);
+                    if (profile.email) {
+                        localStorage.setItem('userLang',"español");
                     }
-                    if (profile.profile.avatar) {
-                        localStorage.setItem('userAvatar', profile.profile.avatar);
+                    if (profile.name) {
+                        localStorage.setItem('userAvatar', profile.name);
                     }
                 }
 

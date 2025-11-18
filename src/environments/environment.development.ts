@@ -1,3 +1,3 @@
 export const environment = {
-    BASE_URL: 'https://test.cqinversiones.co/api'
+    BASE_URL: 'http://127.0.0.1:8000/api'
 };

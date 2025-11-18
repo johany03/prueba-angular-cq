@@ -15,7 +15,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
     // Agregar token si existe
     if (token) {
-        headers = headers.set('Authorization', `JWT ${token}`);
+        headers = headers.set('Authorization', `bearer ${token}`);
     }
 
     const authReq = req.clone({ headers });

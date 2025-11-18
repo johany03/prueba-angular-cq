@@ -17,7 +17,7 @@ import { AuthService } from '@/features/auth/services/auth.service';
                 <i class="pi pi-bars"></i>
             </button>
             <a class="layout-topbar-logo" routerLink="/">
-                <span>CQ | Johany Cruz</span>
+                <span>Parqueadero </span>
             </a>
         </div>
 
