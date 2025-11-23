@@ -13,3 +13,16 @@ export interface ClienteList {
     contact_email: string;
     enabled?: boolean;
 }
+
+export interface ListaParqueadero {
+    id: number;
+    placa: string;
+    tipo_vehiculo_id: number;
+    hora_entrada: string;
+    hora_salida: null;
+    valor_pagado: null;
+    estado: string;
+    created_at: string;
+    updated_at: string;
+    deleted_at: null;
+}

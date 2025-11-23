@@ -25,7 +25,7 @@ export class AppMenu {
             },
             {
                 label: 'Modulos',
-                items: [{ label: 'Clientes', icon: 'pi pi-fw pi-id-card', routerLink: ['clientes'] }]
+                items: [{ label: 'Registros de Entrada', icon: 'pi pi-fw pi-id-card', routerLink: ['clientes'] }]
             }
         ];
     }

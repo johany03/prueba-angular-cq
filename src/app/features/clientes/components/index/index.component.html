@@ -7,14 +7,14 @@
     </ng-template>
 </p-toolbar>
 
-<p-table #dt [value]="clientes" [rows]="10" [paginator]="true"
+<p-table #dt [value]="parqueadero" [rows]="10" [paginator]="true"
     [globalFilterFields]="['name']"
     [tableStyle]="{ 'min-width': '75rem' }" [rowHover]="true" dataKey="id"
-    currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} clientes" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} parqueadero" [showCurrentPageReport]="true"
     [rowsPerPageOptions]="[10, 20, 30]">
     <ng-template #caption>
         <div class="flex items-center justify-between">
-            <h5 class="m-0">Lista de Clientes</h5>
+            <h5 class="m-0">Resgistro de Entradas de Vehiculos </h5>
             <p-iconfield>
                 <p-inputicon styleClass="pi pi-search" />
                 <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..." />
@@ -35,12 +35,10 @@
     </ng-template>
     <ng-template #body let-item>
         <tr>
-            <td *ngFor="let col of cols" [ngClass]="col.field === 'enabled' ? 'text-center' : ''">
-                <ng-container *ngIf="col.field === 'enabled'; else defaultCell">
-                    <i [class]="item[col.field] ? 'pi pi-check text-green-500' : 'pi pi-times text-red-500'" 
-                       [pTooltip]="item[col.field] ? 'Activo' : 'Inactivo'"
-                       tooltipPosition="top"
-                       style="font-size: 1.2rem; cursor: help;"></i>
+            <td *ngFor="let col of cols" [ngClass]="col.field === 'estado' ? 'text-center' : ''">
+                <ng-container *ngIf="col.field === 'estado'; else defaultCell">
+                    <p-tag [severity]="item[col.field] === 'Pendiente' ? 'danger' : (item[col.field] === 'Pagado' ? 'success' : 'secondary')" [value]="item[col.field]" />
+                    <!-- <p-tag [value]="item[col.field]" [severity]="getSeverity(item[col.field])"></p-tag> -->
                 </ng-container>
                 <ng-template #defaultCell>
                     {{ item[col.field] }}

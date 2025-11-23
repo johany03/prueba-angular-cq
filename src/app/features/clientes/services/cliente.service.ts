@@ -2,21 +2,21 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Cliente, ClienteList } from '../model/cliente.model';
+import { Cliente, ClienteList, ListaParqueadero } from '../model/cliente.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ClienteService {
     private http = inject(HttpClient);
-    private urlApi = environment.BASE_URL + '/customer';
+    private urlApi = environment.BASE_URL + '/parqueadero';
 
     /**
      * Obtiene el listado de todos los clientes
      * @returns Observable<ClienteList[]>
      */
-    getClientes(): Observable<ClienteList[]> {
-        return this.http.post<ClienteList[]>(`${this.urlApi}/list/`, {});
+    getClientes(): Observable<ListaParqueadero[]> {
+        return this.http.post<ListaParqueadero[]>(`${this.urlApi}/list/`, {});
     }
 
     /**

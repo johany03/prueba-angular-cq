@@ -19,7 +19,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TooltipModule } from 'primeng/tooltip';
-import { Cliente, ClienteList } from '../../model/cliente.model';
+import { Cliente, ClienteList, ListaParqueadero } from '../../model/cliente.model';
 import { ClienteService } from '../../services/cliente.service';
 import { Column } from '@/shared/models/column.model';
 import { FormComponent } from '../form/form.component';
@@ -57,6 +57,7 @@ export class IndexComponent implements OnInit {
     @ViewChild('dt') dt!: Table;
     @ViewChild(FormComponent) formComponent!: FormComponent;
     clientes!: ClienteList[];
+    parqueadero!: ListaParqueadero[];
     cols!: Column[];
 
     constructor(
@@ -73,15 +74,18 @@ export class IndexComponent implements OnInit {
     // Logica para obtener los clientes y mostrarlos en una tabla
     getClientes() {
         this.clienteService.getClientes().subscribe((data) => {
-            this.clientes = data;
+            this.parqueadero = data;
         });
     }
 
     loadColumns() {
         this.cols = [
-            { field: 'name', header: 'Nombre', sortable: true, width: '20rem', type: 'expand', nameClass: 'text-center-column' },
-            { field: 'contact_email', header: 'Contacto Email', width: '20rem', type: 'expand', nameClass: 'text-center-column' },
-            { field: 'enabled', header: 'Estado', width: '10rem', type: 'expand', nameClass: 'text-center-column' }
+            { field: 'placa', header: 'Placa', sortable: true, width: '5rem', type: 'expand', nameClass: 'text-center-column' },
+            { field: 'tipo_vehiculo_id', header: 'Tipo vehiculo', width: '5rem', type: 'expand', nameClass: 'text-center-column' },
+            { field: 'hora_entrada', header: 'Hora Ingreso', width: '10rem', type: 'expand', nameClass: 'text-center-column' },
+            { field: 'hora_salida', header: 'Hora Salida', width: '10rem', type: 'expand', nameClass: 'text-center-column' },
+            { field: 'valor_pagado', header: 'Valor a Pagar', width: '5rem', type: 'expand', nameClass: 'text-center-column' },
+            { field: 'estado', header: 'Estado', width: '5rem', type: 'expand', nameClass: 'text-center-column' }
         ];
     }
 
