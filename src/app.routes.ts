@@ -26,19 +26,19 @@ export const appRoutes: Routes = [
             },
             // Rutas de clientes como hijas del layout
             {
-                path: 'clientes',
+                path: 'parqueadero',
                 children: [
                     {
                         path: '',
-                        loadComponent: () => import('./app/features/clientes/components/index/index.component').then((m) => m.IndexComponent)
+                        loadComponent: () => import('./app/features/parqueadero/components/index/index.component').then((m) => m.IndexComponent)
                     },
                     {
                         path: 'nuevo',
-                        loadComponent: () => import('./app/features/clientes/components/form/form.component').then((m) => m.FormComponent)
+                        loadComponent: () => import('./app/features/parqueadero/components/form/form.component').then((m) => m.FormComponent)
                     },
                     {
                         path: 'editar/:id',
-                        loadComponent: () => import('./app/features/clientes/components/form/form.component').then((m) => m.FormComponent)
+                        loadComponent: () => import('./app/features/parqueadero/components/form/form.component').then((m) => m.FormComponent)
                     }
                 ]
             }

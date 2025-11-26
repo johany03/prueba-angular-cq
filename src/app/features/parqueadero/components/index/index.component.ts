@@ -19,8 +19,8 @@ import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TooltipModule } from 'primeng/tooltip';
-import { Cliente, ClienteList, ListaParqueadero } from '../../model/cliente.model';
-import { ClienteService } from '../../services/cliente.service';
+import { ListaParqueadero } from '../../model/cliente.model';
+import { ParqueaderoService } from '../../services/parqueadero.service';
 import { Column } from '@/shared/models/column.model';
 import { FormComponent } from '../form/form.component';
 
@@ -51,17 +51,16 @@ import { FormComponent } from '../form/form.component';
         TooltipModule,
         FormComponent
     ],
-    providers: [MessageService, ClienteService, ConfirmationService]
+    providers: [MessageService, ParqueaderoService, ConfirmationService]
 })
 export class IndexComponent implements OnInit {
     @ViewChild('dt') dt!: Table;
     @ViewChild(FormComponent) formComponent!: FormComponent;
-    clientes!: ClienteList[];
     parqueadero!: ListaParqueadero[];
     cols!: Column[];
 
     constructor(
-        private clienteService: ClienteService,
+        private parqueaderoService: ParqueaderoService,
         private messageService: MessageService,
         private confirmationService: ConfirmationService
     ) {}
@@ -73,7 +72,7 @@ export class IndexComponent implements OnInit {
 
     // Logica para obtener los clientes y mostrarlos en una tabla
     getClientes() {
-        this.clienteService.getClientes().subscribe((data) => {
+        this.parqueaderoService.getClientes().subscribe((data) => {
             this.parqueadero = data;
         });
     }
@@ -97,17 +96,17 @@ export class IndexComponent implements OnInit {
         table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }
 
-    editProduct(cliente: Cliente) {
-        this.formComponent.editCliente(cliente);
+    editProduct(parqueadero: ListaParqueadero) {
+        this.formComponent.editParqueadero(parqueadero);
     }
 
-    deleteProduct(cliente: Cliente) {
+    deleteProduct(parqueadero: ListaParqueadero) {
         this.confirmationService.confirm({
             message: '¿Está seguro que desea eliminar este cliente?',
             header: 'Confirmar eliminación',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.clienteService.deleteCliente(cliente.id!).subscribe({
+                this.parqueaderoService.deleteCliente(parqueadero.id!).subscribe({
                     next: () => {
                         this.messageService.add({
                             severity: 'success',

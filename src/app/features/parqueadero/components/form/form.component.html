@@ -1,0 +1,93 @@
+<p-dialog
+    [(visible)]="parqueaderoDialog"
+    [style]="{ width: '550px' }"
+    [header]="getDialogHeader()"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [closable]="true"
+    styleClass="p-fluid">
+    <form [formGroup]="parqueaderoForm" (ngSubmit)="saveParquedero()">
+        <div class="flex justify-content-center mb-3" *ngIf="loading">
+            <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+        </div>
+        <div>
+            <input
+                type="text"
+                pInputText
+                id="placa"
+                formControlName="placa"
+                placeholder="Placa"
+                required
+                maxlength="7"
+                minlength="7"
+                class="w-full input-text"/>
+        </div>
+        <div class="mb-3 mt-5">
+            <label for="tipo_vehiculo_id" class="font-bold mb-1 block">Tipo de Vehículo <span class="text-red-500">*</span></label>
+            <p-select
+              [options]="tarifas"
+              formControlName="tipo_vehiculo_id"
+              optionValue="id"
+              optionLabel="tipo_vehiculo"
+              inputId="id"
+              placeholder="Seleccione el tipo de vehículo"
+              class="w-full"
+              required />
+            <small class="p-error block mt-1" *ngIf="submitted && parqueaderoForm.get('tipo_vehiculo_id')?.invalid">
+                El tipo de vehículo es requerido.
+            </small>
+        </div>
+        <!-- Hora de entrada  -->
+        <div class=" mb-3 mt-2">
+            <label for="hora_entrada" class="font-bold mb-1 block">Hora de Entrada <span class="text-red-500">*</span></label>
+            <p-datepicker inputId="dateTime" formControlName="hora_entrada" [showTime]="true"
+                        dateFormat="yy-mm-dd" hourFormat="24" showSeconds="true" class="w-full"
+                        [style]="{ width: '100%' }">
+                    </p-datepicker>
+        </div>
+        <!-- Hora de salida  -->
+        <div class="mb-3 mt-2">
+            <label for="hora_salida" class="font-bold mb-1 block">Hora de Salida</label>
+            <p-datepicker inputId="dateTime" formControlName="hora_salida" [showTime]="true"
+                        dateFormat="yy-mm-dd" hourFormat="24" showSeconds="true" class="w-full"
+                        [style]="{ width: '100%' }">
+                    </p-datepicker>
+        </div>
+        <!-- Valor a pagar -->
+        <div class=" mb-3 mt-2">
+            <label for="valor_a_pagar" class="font-bold mb-2 block">Valor a Pagar</label>
+            <input type="text" pInputText class="w-full mt-2"
+                formControlName="valor_pagado"
+                placeholder="Valor a pagar"
+                readonly />
+        </div>
+    </form>
+
+    <ng-template pTemplate="footer">
+        <div class="flex justify-content-end gap-2">
+            <button
+                pButton
+                pRipple
+                type="button"
+                label="Cancelar"
+                icon="pi pi-times"
+                severity="secondary"
+                [outlined]="true"
+                [disabled]="loading"
+                (click)="hideDialog()">
+            </button>
+            <button
+                pButton
+                pRipple
+                type="button"
+                [label]="isEditing ? 'Actualizar' : 'Guardar'"
+                icon="pi pi-check"
+                [disabled]="loading"
+                (click)="saveParquedero()">
+            </button>
+        </div>
+    </ng-template>
+</p-dialog>
+
+<p-toast></p-toast>
